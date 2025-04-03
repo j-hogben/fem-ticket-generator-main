@@ -52,7 +52,7 @@
               <p>Secure your spot at next year's biggest coding conference.</p>
             </section>
 
-            <form action="">
+            <form id="registrationForm" action="">
               <!-- Drop Area -->
               <div class="form-group">
                 <label for="dragAreaAvatar">Upload Avatar</label>
@@ -62,6 +62,8 @@
                     name="dragAreaAvatar"
                     id="dragAreaAvatar"
                     class="drag-area__input sr-only"
+                    required
+                    data-file-size="500000"
                   />
                   <div class="drag-area__thumbnail"></div>
                   <div class="drag-area__prompt"></div>
@@ -74,7 +76,7 @@
                     </button>
                   </div>
                 </div>
-                <div class="drag-area__info-tip">
+                <div class="drag-area__info-tip info-tip">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -98,28 +100,118 @@
                   </svg>
                   <p>Upload your photo (JPG or PNG, max size: 500KB).</p>
                 </div>
-                <div class="error"></div>
+                <div class="drag-area__error error">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="none"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M2 8a6 6 0 1 0 12 0A6 6 0 0 0 2 8Z"
+                    />
+                    <path d="M8.004 10.462V7.596ZM8 5.57v-.042Z" />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M8.004 10.462V7.596M8 5.569v-.042"
+                    />
+                  </svg>
+                  <p class="error__text"></p>
+                </div>
               </div>
 
               <!-- Full Name -->
               <div class="form-group">
                 <label for="fullName">Full Name</label>
-                <input type="text" id="fullName" />
-                <div class="error"></div>
+                <input type="text" id="fullName" required />
+                <div class="error">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="none"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M2 8a6 6 0 1 0 12 0A6 6 0 0 0 2 8Z"
+                    />
+                    <path d="M8.004 10.462V7.596ZM8 5.57v-.042Z" />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M8.004 10.462V7.596M8 5.569v-.042"
+                    />
+                  </svg>
+                  <p class="error__text"></p>
+                </div>
               </div>
 
               <!-- Email Address -->
               <div class="form-group">
                 <label for="email">Email Address</label>
-                <input type="email" id="email" placeholder="example@email.com" />
-                <div class="error"></div>
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="example@email.com"
+                  required
+                  pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+                />
+                <div class="error">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="none"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M2 8a6 6 0 1 0 12 0A6 6 0 0 0 2 8Z"
+                    />
+                    <path d="M8.004 10.462V7.596ZM8 5.57v-.042Z" />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M8.004 10.462V7.596M8 5.569v-.042"
+                    />
+                  </svg>
+                  <p class="error__text"></p>
+                </div>
               </div>
 
               <!-- GitHub Username -->
               <div class="form-group">
                 <label for="githubUsername">GitHub Username</label>
-                <input type="text" id="githubUsername" placeholder="@yourusername" />
-                <div class="error"></div>
+                <input type="text" id="githubUsername" placeholder="@yourusername" required />
+                <div class="error">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="none"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M2 8a6 6 0 1 0 12 0A6 6 0 0 0 2 8Z"
+                    />
+                    <path d="M8.004 10.462V7.596ZM8 5.57v-.042Z" />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M8.004 10.462V7.596M8 5.569v-.042"
+                    />
+                  </svg>
+                  <p class="error__text"></p>
+                </div>
               </div>
 
               <!-- Submit Form -->

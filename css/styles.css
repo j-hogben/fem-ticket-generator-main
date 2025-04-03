@@ -178,6 +178,10 @@ form input {
   letter-spacing: var(--ls-50);
 }
 
+.error {
+  color: var(--clr-error);
+}
+
 /* FORM TYPOGRAPHY */
 form label {
   color: var(--clr-neut-0);
@@ -380,6 +384,7 @@ header img {
   border-radius: var(--radius-12);
   display: grid;
   place-items: center;
+  text-align: center;
   gap: var(--spacing-200);
   transition: var(--transition-form);
 }
@@ -434,8 +439,17 @@ header img {
   gap: var(--spacing-100);
 }
 
-.error:empty {
+.error svg path,
+.error svg path fill {
+  stroke: var(--clr-error);
+}
+
+.error:has(p:empty) {
   display: none !important;
+}
+
+.error__active {
+  border-color: var(--clr-error) !important;
 }
 
 .cta-submit {
