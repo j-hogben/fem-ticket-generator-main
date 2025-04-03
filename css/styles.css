@@ -229,7 +229,7 @@ body {
   background-position: top, bottom right;
   background-size: 79.125rem 48.625rem, cover;
   background-repeat: no-repeat, no-repeat;
-  /* min-height: 100dvh; */
+  min-height: 100dvh;
 }
 
 /* ~ ~ ~ ~ ~ ~ ~ ~ BACKGROUND PATTERNS */
@@ -479,14 +479,16 @@ button {
     }
   }
 
-  .drag-area__option-btns button:hover {
+  .drag-area__option-btns button:hover,
+  .drag-area__option-btns button:focus-visible {
     background-color: var(--clr-input-bg-hover);
   }
 
   .drag-area__over,
   .drag-area:has(input:focus-visible),
   input:focus-visible,
-  .cta-submit:focus-visible {
+  .cta-submit:focus-visible,
+  .drag-area__option-btns button:focus-visible {
     outline: var(--outline-input);
     outline-offset: 2px;
   }
@@ -571,7 +573,7 @@ button {
 }
 
 .ticket__conference-details {
-  place-items: start;
+  align-items: start;
   grid-area: conference-details;
 }
 

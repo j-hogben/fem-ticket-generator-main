@@ -97,9 +97,11 @@ function removeImage() {
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ FORM VALIDATION ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
 // ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
-validateForm('#registrationForm');
 
-function validateForm(formSelector) {
+// Validate form (when 'submit' event within function is triggered)
+validateForm('#registrationForm', generateTicket);
+
+function validateForm(formSelector, callback) {
   const formElement = document.querySelector(formSelector);
 
   const validationOptions = [
@@ -168,14 +170,90 @@ function validateForm(formSelector) {
     return !formGroups.map((formGroup) => validateSingleFormGroup(formGroup)).includes(false);
   }
 
-  // Remove HTML validation, execute custom validation when form is submitted
+  // Remove HTML validation
   formElement.setAttribute('novalidate', '');
+
+  // Execute custom validation when form is submitted
   formElement.addEventListener('submit', (e) => {
     e.preventDefault();
-    if (validateAllFormGroups(formElement)) {
-      console.log('Form valid');
+    const formIsValid = validateAllFormGroups(formElement);
+
+    if (formIsValid) {
+      console.log('Form is valid');
+      callback(formElement);
     } else {
-      console.log('Form NOT valid');
+      console.log('Form is NOT valid');
     }
   });
+}
+
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ GENERATE TICKET ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+// ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~
+
+function generateTicket(formElement) {
+  const formData = Array.from(formElement.elements)
+    .filter((element) => !['button', 'submit'].includes(element.type))
+    .reduce(
+      (accumulator, element) => ({
+        ...accumulator,
+        [element.id]: element.type === 'file' ? element.files[0] : element.value,
+      }),
+      {}
+    );
+
+  function fillInTicketData(formData) {
+    const formSection = document.querySelector('.form-section');
+    const ticketSection = document.querySelector('.ticket-section');
+
+    const ticketThumbnail = document.querySelector('.ticket__attendee-details__thumbnail');
+    const ticketFullName = document.querySelector('#ticketFullName');
+    const ticketGithubUsername = document.querySelector('#ticketGithubUsername');
+    const ticketNumber = document.querySelector('#ticket__ticket-number');
+
+    // Generate ticket thumbnail
+    const reader = new FileReader();
+    reader.readAsDataURL(formData.dragAreaAvatar);
+    reader.onload = () => {
+      ticketThumbnail.style.backgroundImage = `url(${reader.result})`;
+    };
+
+    // Ticket full name
+    ticketFullName.textContent = formData.fullName;
+
+    // Ticket github username
+    ticketGithubUsername.textContent = formData.githubUsername.startsWith('@')
+      ? formData.githubUsername
+      : `@${formData.githubUsername}`;
+
+    // Generate random ticket number (between 1 and 10,000)
+    const randomTicketNum = Math.floor(Math.random() * 10000);
+    ticketNumber.textContent = `#${randomTicketNum}`;
+
+    // Display generated ticket and hide form
+    formSection.classList.add('hidden');
+    ticketSection.classList.remove('hidden');
+  }
+
+  function generateTicketSection(formData) {
+    const introFullName = document.querySelector('#introFullName');
+    const introEmail = document.querySelector('#introEmailAddress');
+
+    // Create name elements and fill in ticket section name data
+    const names = formData.fullName.split(' ');
+    names.forEach((name, index) => {
+      const div = document.createElement('div');
+      div.textContent = index === names.length - 1 ? name : `${name} `;
+      introFullName.appendChild(div);
+    });
+
+    // Fill in ticket section email data
+    introEmail.textContent = formData.email;
+
+    // Execute fill in ticket data
+    fillInTicketData(formData);
+  }
+
+  // Execute the generation and display of ticket section
+  generateTicketSection(formData);
 }
