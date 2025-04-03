@@ -137,6 +137,7 @@ function validateForm(formSelector, callback) {
   function validateSingleFormGroup(formGroup) {
     const input = formGroup.querySelector('input');
     const label = formGroup.querySelector('label');
+    const errorContainer = formGroup.querySelector('.error');
     const errorText = formGroup.querySelector('.error__text');
     const infoTip = formGroup.querySelector('.info-tip') || false;
 
@@ -145,6 +146,9 @@ function validateForm(formSelector, callback) {
     for (const option of validationOptions) {
       // If errors, display error state
       if (input.hasAttribute(option.attribute) && !option.isValid(input)) {
+        /* Work around as Safari doesn't like '.error:has(p:empty)' selector */
+        errorContainer.style.display = 'flex';
+        /* ~ ~ ~ */
         errorText.textContent = option.errorMessage(input, label);
         input.classList.add('error__active');
         if (infoTip) infoTip.classList.add('hidden');
@@ -154,6 +158,7 @@ function validateForm(formSelector, callback) {
 
     // If no errors, remove error state
     if (!formGroupError) {
+      errorContainer.style.display = 'none';
       errorText.textContent = '';
       input.classList.remove('error__active');
     }

@@ -444,8 +444,12 @@ header img {
   stroke: var(--clr-error);
 }
 
-.error:has(p:empty) {
-  display: none !important;
+/* .error:has(p:empty) {
+  display: none;
+} */
+
+.error {
+  display: none;
 }
 
 .error__active {
