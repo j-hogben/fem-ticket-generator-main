@@ -17,11 +17,17 @@
     <link rel="stylesheet" href="./css/reset.css" />
     <link rel="stylesheet" href="./css/styles.css" />
 
+    <script src="./script.js" defer></script>
+
     <title>Frontend Mentor | Conference ticket generator</title>
   </head>
   <body>
     <div class="background-patterns">
-      <img class="bg-absolute bg-squiggle-top" src="./assets/images/pattern-squiggly-line-top.svg" alt="" />
+      <img
+        class="bg-absolute bg-squiggle-top"
+        src="./assets/images/pattern-squiggly-line-top.svg"
+        alt=""
+      />
       <img class="bg-absolute bg-circle" src="./assets/images/pattern-circle.svg" alt="" />
       <img
         class="bg-absolute bg-squiggle-bottom-mob"
@@ -51,12 +57,21 @@
               <div class="form-group">
                 <label for="dragAreaAvatar">Upload Avatar</label>
                 <div class="drag-area">
-                  <input type="file" name="dragAreaAvatar" id="dragAreaAvatar" class="sr-only" />
+                  <input
+                    type="file"
+                    name="dragAreaAvatar"
+                    id="dragAreaAvatar"
+                    class="drag-area__input sr-only"
+                  />
                   <div class="drag-area__thumbnail"></div>
-                  <div class="drag-area__prompt">Drag and drop or click to upload</div>
-                  <div class="drag-area__option-btns hidden">
-                    <button class="drag-area__remove-btn" type="button">Remove Image</button>
-                    <button class="drag-area__change-btn" type="button">Change Image</button>
+                  <div class="drag-area__prompt"></div>
+                  <div class="drag-area__option-btns">
+                    <button class="drag-area__remove-btn" type="button" onclick="removeImage()">
+                      Remove Image
+                    </button>
+                    <button class="drag-area__change-btn" type="button" onclick="changeImage()">
+                      Change Image
+                    </button>
                   </div>
                 </div>
                 <div class="drag-area__info-tip">

@@ -389,7 +389,13 @@ header img {
   aspect-ratio: 1;
   border: 1px solid var(--clr-neut-700);
   border-radius: var(--radius-12);
-  background: url(../assets/images/icon-upload.svg) var(--clr-drag-area-btn-bg) no-repeat center;
+  background-color: var(--clr-drag-area-btn-bg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.drag-area__prompt:empty {
+  display: none;
 }
 
 .drag-area__option-btns {
@@ -402,6 +408,7 @@ header img {
   background-color: var(--clr-drag-area-btn-bg);
   border: none;
   border-radius: var(--radius-4);
+  transition: var(--transition-form);
 }
 
 .drag-area__remove-btn {
@@ -458,7 +465,7 @@ button {
     }
   }
 
-  .drag-area__image-options button:hover {
+  .drag-area__option-btns button:hover {
     background-color: var(--clr-input-bg-hover);
   }
 
